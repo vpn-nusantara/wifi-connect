@@ -199,11 +199,7 @@
             <div class="qr-section">
                 <!-- Anda bisa mengganti URL src gambar ini dengan file gambar QR code asli Anda nanti -->
                 <img class="qr-code" <img src="images/NASI_UDUK_FR.png" alt="QR Jaringan 1">
-                <div class="scan-me-container">
-                    <svg class="wifi-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 21l-12-12c2.946-2.946 7.021-4.5 12-4.5s9.054 1.554 12 4.5l-12 12zm0-14.8c-4.143 0-7.534 1.256-10.024 3.612l10.024 10.024 10.024-10.024c-2.49-2.356-5.881-3.612-10.024-3.612z"/>
-                    </svg>
-                    <span class="scan-text">Scan Me</span>
+                <div class=>
                 </div>
             </div>
         </div>
@@ -225,11 +221,7 @@
             <div class="qr-section">
                 <!-- Anda bisa mengganti URL src gambar ini dengan file gambar QR code asli Anda nanti -->
                 <img class="qr-code" <img src="images/NASI UDUK FR_4G.png" alt="QR Jaringan 2">
-                <div class="scan-me-container">
-                    <svg class="wifi-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 21l-12-12c2.946-2.946 7.021-4.5 12-4.5s9.054 1.554 12 4.5l-12 12zm0-14.8c-4.143 0-7.534 1.256-10.024 3.612l10.024 10.024 10.024-10.024c-2.49-2.356-5.881-3.612-10.024-3.612z"/>
-                    </svg>
-                    <span class="scan-text">Scan Me</span>
+                <div class=>
                 </div>
             </div>
         </div>
