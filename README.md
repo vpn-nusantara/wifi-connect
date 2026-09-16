@@ -8,52 +8,122 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f4f7f6;
-            margin: 0;
-            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
+            margin: 0;
         }
-        .container {
+        .card {
             background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             text-align: center;
-            max-width: 400px;
-            width: 90%;
+            max-width: 380px;
+            width: 100%;
         }
-        h1 {
-            color: #1e3a8a;
-            font-size: 24px;
-            margin-bottom: 20px;
+        h2 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        p.subtitle {
+            color: #666;
+            font-size: 14px;
+            margin-top: 0;
+            margin-bottom: 25px;
         }
         .info-box {
-            background-color: #eff6ff;
-            border: 1px solid #bfdbfe;
+            background-color: #f9f9f9;
+            border: 1px solid #e0e0e0;
             border-radius: 8px;
             padding: 15px;
             margin-bottom: 20px;
             text-align: left;
         }
         .info-item {
-            margin: 10px 0;
-            font-size: 16px;
-            color: #1e293b;
+            margin-bottom: 10px;
+        }
+        .info-item:last-child {
+            margin-bottom: 0;
         }
         .label {
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
             font-weight: bold;
-            color: #475569;
+            display: block;
         }
-        .btn {
-            background-color: #2563eb;
+        .value {
+            font-size: 18px;
+            color: #222;
+            font-weight: 600;
+        }
+        .btn-copy {
+            background-color: #007bff;
             color: white;
-            padding: 12px 20px;
             border: none;
-            border-radius: 6px;
+            padding: 12px;
+            width: 100%;
+            border-radius: 8px;
             font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-copy:hover {
+            background-color: #0056b3;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Detail Jaringan Wi-Fi</h2>
+    <p class="subtitle">Gunakan informasi di bawah untuk terhubung</p>
+    
+    <div class="info-box">
+        <div class="info-item">
+            <span class="label">Nama Wi-Fi (SSID)</span>
+            <span class="value">NASI UDUK FR_4G</span>
+        </div>
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 12px 0;">
+        <div class="info-item">
+            <span class="label">Kata Sandi</span>
+            <span class="value" id="password">2U346J2J88</span>
+        </div>
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 12px 0;">
+        <div class="info-item">
+            <span class="label">Jenis Keamanan</span>
+            <span class="value">WPA/WPA2</span>
+        </div>
+    </div>
+
+    <button class="btn-copy" onclick="copyPassword()">Salin Kata Sandi</button>
+    
+    <div class="footer">
+        Pindai kode QR langsung dari kamera HP untuk masuk otomatis.
+    </div>
+</div>
+
+<script>
+function copyPassword() {
+    const passwordText = document.getElementById("password").innerText;
+    navigator.clipboard.writeText(passwordText).then(() => {
+        alert("Kata sandi berhasil disalin ke papan klip!");
+    }).catch(err => {
+        alert("Gagal menyalin kata sandi otomatis.");
+    });
+}
+</script>
+
+</body>
+</html>            cursor: pointer;
             text-decoration: none;
             display: inline-block;
             transition: background-color 0.3s;
