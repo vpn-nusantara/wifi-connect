@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail Jaringan Wi-Fi</title>
+    <!-- QRCode.js Library CDN untuk generate QR otomatis -->
+    <script src="https://cloudflare.com"></script>
     <style>
         * {
             box-sizing: border-box;
@@ -13,7 +15,7 @@
         }
 
         body {
-            background-color: #f7f9fa;
+            background-color: #f8f9fa;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -21,82 +23,63 @@
             padding: 20px;
         }
 
-        /* Container Utama dengan flex agar card dan info kanan sejajar */
-        .wrapper {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            max-width: 600px;
+        .container {
             width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
-        /* Card Putih Utama (Kiri) */
-        .card {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 24px;
-            width: 280px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+        /* Card Utama untuk Detail Jaringan */
+        .info-card {
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 30px 24px;
             text-align: center;
-            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
         }
 
         .title {
             font-size: 20px;
             font-weight: 600;
             color: #1a1a1a;
-            line-height: 1.3;
             margin-bottom: 8px;
         }
 
         .subtitle {
-            font-size: 12px;
-            color: #8c8c8c;
+            font-size: 14px;
+            color: #666666;
+            margin-bottom: 28px;
+        }
+
+        .label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #999999;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #000000;
             line-height: 1.4;
             margin-bottom: 24px;
         }
 
-        /* Grup Informasi Jaringan */
-        .info-group {
-            text-align: left;
-            margin-bottom: 16px;
-        }
-
-        .label {
-            font-size: 10px;
-            font-weight: 600;
-            color: #a0a0a0;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 4px;
-        }
-
-        .value {
-            font-size: 15px;
-            font-weight: 600;
-            color: #262626;
-            line-height: 1.4;
-            word-break: break-all;
-        }
-
-        /* Bagian Kanan (Tombol Salin & Keterangan QR) */
-        .action-area {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-grow: 1;
-        }
-
         .btn-copy {
+            width: 100%;
             background-color: #007aff;
             color: #ffffff;
             border: none;
-            border-radius: 8px;
-            padding: 12px 20px;
-            font-size: 14px;
+            border-radius: 12px;
+            padding: 14px;
+            font-size: 15px;
             font-weight: 500;
             cursor: pointer;
-            white-space: nowrap;
             transition: background-color 0.2s;
         }
 
@@ -104,67 +87,113 @@
             background-color: #0062cc;
         }
 
-        .qr-hint {
-            font-size: 11px;
-            color: #a6a6a6;
-            line-height: 1.3;
-            max-width: 140px;
+        /* Container untuk Barcode / QR Code bawah */
+        .qr-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
         }
 
-        /* Responsif untuk layar hp portrait kecil jika area tidak muat */
-        @media (max-width: 480px) {
-            .wrapper {
-                flex-direction: column;
-                align-items: center;
-            }
-            .action-area {
-                flex-direction: column;
-                text-align: center;
-                align-items: center;
-            }
+        .qr-card {
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 20px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .qr-container {
+            width: 130px;
+            height: 130px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .qr-container img {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        .qr-desc {
+            font-size: 11px;
+            color: #666666;
+            text-align: center;
+            font-weight: 400;
         }
     </style>
 </head>
 <body>
 
-    <div class="wrapper">
-        <!-- Card Detail Wi-Fi -->
-        <div class="card">
-            <h1 class="title">Detail<br>Jaringan Wi-Fi</h1>
+    <div class="container">
+        <!-- Bagian Atas: Detail Informasi -->
+        <div class="info-card">
+            <h2 class="title">Detail Jaringan Wi-Fi</h2>
             <p class="subtitle">Gunakan informasi di bawah untuk terhubung</p>
 
-            <div class="info-group">
-                <div class="label">Nama Wi-Fi (SSID)</div>
-                <div class="value">NASI UDUK FR</div>
-                <div class="value">NASI UDUK FR_4G</div>
+            <div class="label">Nama Wi-Fi (SSID)</div>
+            <div class="value">
+                NASI UDUK FR<br>
+                NASI UDUK FR_4G
             </div>
 
-            <div class="info-group">
-                <div class="label">Kata Sandi</div>
-                <div class="value">2U346J2J88</div>
-            </div>
+            <div class="label">Kata Sandi</div>
+            <div class="value" id="password">2U346J2J88</div>
 
-            <div class="info-group" style="margin-bottom: 0;">
-                <div class="label">Jenis Keamanan</div>
-                <div class="value">WPA/WPA2</div>
-            </div>
+            <button class="btn-copy" onclick="copyPassword()">Salin Kata Sandi</button>
         </div>
 
-        <!-- Tombol Aksi di Luar Card -->
-        <div class="action-area">
-            <button class="btn-copy" onclick="copyPassword()">Salin Kata Sandi</button>
-            <p class="qr-hint">Pindai kode QR langsung dari kamera HP untuk masuk otomatis.</p>
+        <!-- Bagian Bawah: QR Code Dua Frekuensi -->
+        <div class="qr-section">
+            <div class="qr-card">
+                <div class="qr-container" id="qr-24ghz"></div>
+                <p class="qr-desc">NASI UDUK FR</p>
+            </div>
+
+            <div class="qr-card">
+                <div class="qr-container" id="qr-5ghz"></div>
+                <p class="qr-desc">NASI UDUK FR_4G</p>
+            </div>
         </div>
     </div>
 
     <script>
-        // Fungsi opsional untuk menyalin kata sandi ketika tombol diklik
+        // Data Wi-Fi untuk dibuat jadi QR Code standar Android/iOS
+        // Format: WIFI:S:[SSID];T:[WPA/WEP];P:[PASSWORD];;
+        const wifi24 = "WIFI:S:NASI UDUK FR;T:WPA;P:2U346J2J88;;";
+        const wifi5 = "WIFI:S:NASI UDUK FR_4G;T:WPA;P:2U346J2J88;;";
+
+        // Generate QR Code untuk 2.4GHz
+        new QRCode(document.getElementById("qr-24ghz"), {
+            text: wifi24,
+            width: 130,
+            height: 130,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+
+        // Generate QR Code untuk 5GHz
+        new QRCode(document.getElementById("qr-5ghz"), {
+            text: wifi5,
+            width: 130,
+            height: 130,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+
+        // Fungsi Tombol Salin Kata Sandi
         function copyPassword() {
-            const password = "2U346J2J88";
-            navigator.clipboard.writeText(password).then(() => {
-                alert("Kata sandi berhasil disalin!");
+            const passwordText = document.getElementById("password").innerText;
+            navigator.clipboard.writeText(passwordText).then(() => {
+                alert("Kata sandi berhasil disalin ke clipboard!");
             }).catch(err => {
-                console.error("Gagal menyalin: ", err);
+                console.error("Gagal menyalin kata sandi: ", err);
             });
         }
     </script>
