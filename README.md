@@ -4,16 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail Jaringan Wi-Fi</title>
+    <!-- Menggunakan font modern dari Google Fonts -->
+    <link href="https://googleapis.com" rel="stylesheet">
+    
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
-            background-color: #f8f9fa;
+            background-color: #f8fafc;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -21,236 +24,214 @@
             padding: 20px;
         }
 
-        .container {
-            background-color: #ffffff;
+        /* Container Utama */
+        .main-card {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
             width: 100%;
-            max-width: 500px;
-            border: 1px solid #e0e0e0;
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            max-width: 450px;
+            padding: 30px 24px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .header {
             text-align: center;
+            margin-bottom: 28px;
         }
 
         .header h1 {
             font-size: 22px;
-            color: #1a1a1a;
-            font-weight: 600;
+            color: #1e293b;
+            font-weight: 700;
             margin-bottom: 6px;
         }
 
         .header p {
             font-size: 14px;
-            color: #666666;
-            margin-bottom: 24px;
+            color: #64748b;
         }
 
-        .card {
-            border: 1px solid #cccccc;
-            border-radius: 12px;
-            padding: 16px;
+        /* Kartu Setiap Jaringan */
+        .network-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .network-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .network-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0f172a;
             margin-bottom: 16px;
-            display: flex;
-            align-items: stretch;
-            justify-content: space-between;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 8px;
         }
 
-        .info-section {
-            width: 55%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            text-align: left;
-        }
-
+        /* Info Teks */
         .info-group {
-            margin-bottom: 12px;
-        }
-
-        .card h2 {
-            font-size: 20px;
-            color: #1a1a1a;
             margin-bottom: 14px;
         }
 
-        .label {
+        .info-label {
             font-size: 11px;
-            color: #444444;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            font-weight: 500;
-            margin-bottom: 2px;
+            color: #94a3b8;
+            font-weight: 600;
+            margin-bottom: 4px;
         }
 
-        .value {
-            font-size: 18px;
-            font-weight: bold;
-            color: #111111;
+        .info-value {
+            font-size: 16px;
+            color: #334155;
+            font-weight: 600;
             word-break: break-all;
         }
 
-        .btn-copy {
-            background-color: #0066cc;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 10px 16px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            width: 100%;
-            transition: background-color 0.2s;
-            text-align: center;
-        }
-
-        .btn-copy:hover {
-            background-color: #0052a3;
-        }
-
-        .btn-copy:active {
-            background-color: #004080;
-        }
-
-        .qr-section {
-            width: 40%;
+        /* Seksi Barcode (Di bawah teks) */
+        .barcode-section {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            border: 2px solid #000000;
-            border-radius: 16px;
-            padding: 10px;
-            background-color: #ffffff;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px dashed #e2e8f0;
         }
 
-        .qr-code {
-            width: 100%;
-            max-width: 120px;
-            height: auto;
-            aspect-ratio: 1/1;
+        /* Ukuran barcode diperbesar & terlihat jelas */
+        .barcode-wrapper {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            padding: 12px;
+            border-radius: 12px;
+            display: inline-block;
             margin-bottom: 8px;
         }
 
-        .scan-me-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            border-top: 1px solid #e0e0e0;
-            width: 100%;
-            padding-top: 8px;
-        }
-
-        .wifi-icon {
-            width: 16px;
-            height: 16px;
+        .barcode-wrapper img {
+            display: block;
+            width: 160px; /* Ukuran gambar barcode */
+            height: 160px;
+            object-fit: contain;
         }
 
         .scan-text {
-            font-size: 14px;
-            font-weight: bold;
-            color: #000000;
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 500;
+            margin-bottom: 16px;
         }
 
-        /* Notifikasi Toast */
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background-color: #333333;
+        /* Tombol Salin Kata Sandi */
+        .btn-copy {
+            width: 100%;
+            background-color: #0284c7;
             color: white;
-            padding: 12px 24px;
-            border-radius: 30px;
+            border: none;
+            padding: 12px;
             font-size: 14px;
-            opacity: 0;
-            transition: transform 0.3s, opacity 0.3s;
-            z-index: 999;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
         }
 
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
+        .btn-copy:hover {
+            background-color: #0369a1;
+        }
+
+        .btn-copy:active {
+            transform: scale(0.98);
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <div class="main-card">
         <div class="header">
             <h1>Detail Jaringan Wi-Fi</h1>
             <p>Gunakan informasi di bawah untuk terhubung</p>
         </div>
 
         <!-- Jaringan 1 -->
-        <div class="card">
-            <div class="info-section">
-                <h2>Jaringan 1</h2>
-                <div class="info-group">
-                    <div class="label">Nama Wi-Fi (SSID)</div>
-                    <div class="value">NASI UDUK FR</div>
-                </div>
-                <div class="info-group" style="margin-bottom: 16px;">
-                    <div class="label">Kata Sandi</div>
-                    <div class="value" id="pass1">2U346J2J88</div>
-                </div>
-                <button class="btn-copy" onclick="copyPassword('pass1')">Salin Kata Sandi</button>
+        <div class="network-card">
+            <div class="network-title">Jaringan 1</div>
+            
+            <div class="info-group">
+                <div class="info-label">Nama Wi-Fi (SSID)</div>
+                <div class="info-value">NASI UDUK FR</div>
             </div>
-            <div class="qr-section">
-                <!-- Anda bisa mengganti URL src gambar ini dengan file gambar QR code asli Anda nanti -->
-                <img class="qr-code" <img src="images/NASI_UDUK_FR.png" alt="QR Jaringan 1" style="max-width: 100%; height: auto;">
-                <div class=>
+            
+            <div class="info-group">
+                <div class="info-label">Kata Sandi</div>
+                <div class="info-value" id="pass1">2U346J2J88</div>
+            </div>
+
+            <!-- Barcode berada di bawah teks -->
+            <div class="barcode-section">
+                <div class="barcode-wrapper">
+                    <!-- Ganti src dengan link/path gambar barcodemu -->
+                    <img src="images/NASI_UDUK_FR.png" alt="QR Code Jaringan 1">
                 </div>
+                <div class="scan-text">Scan Me</div>
+                <button class="btn-copy" onclick="copyText('pass1', this)">Salin Kata Sandi</button>
             </div>
         </div>
 
         <!-- Jaringan 2 -->
-        <div class="card">
-            <div class="info-section">
-                <h2>Jaringan 2</h2>
-                <div class="info-group">
-                    <div class="label">Nama Wi-Fi (SSID)</div>
-                    <div class="value">NASI UDUK FR_4G</div>
-                </div>
-                <div class="info-group" style="margin-bottom: 16px;">
-                    <div class="label">Kata Sandi</div>
-                    <div class="value" id="pass2">2U346J2J88</div>
-                </div>
-                <button class="btn-copy" onclick="copyPassword('pass2')">Salin Kata Sandi</button>
+        <div class="network-card">
+            <div class="network-title">Jaringan 2</div>
+            
+            <div class="info-group">
+                <div class="info-label">Nama Wi-Fi (SSID)</div>
+                <div class="info-value">NASI UDUK FR_4G</div>
             </div>
-            <div class="qr-section">
-                <!-- Anda bisa mengganti URL src gambar ini dengan file gambar QR code asli Anda nanti -->
-                <img class="qr-code" <img src="images/NASI UDUK FR_4G.png" alt="QR Jaringan 2 "style="max-width: 100%; height: auto;">
-                <div class=>
+            
+            <div class="info-group">
+                <div class="info-label">Kata Sandi</div>
+                <div class="info-value" id="pass2">2U346J2J88</div>
+            </div>
+
+            <!-- Barcode berada di bawah teks -->
+            <div class="barcode-section">
+                <div class="barcode-wrapper">
+                    <!-- Ganti src dengan link/path gambar barcodemu -->
+                    <img src="images/NASI_UDUK_FR_4G.png" alt="QR Code Jaringan 2">
                 </div>
+                <div class="scan-text">Scan Me</div>
+                <button class="btn-copy" onclick="copyText('pass2', this)">Salin Kata Sandi</button>
             </div>
         </div>
     </div>
 
-    <!-- Elemen Toast untuk pesan berhasil salin -->
-    <div id="toast" class="toast">Kata sandi berhasil disalin!</div>
-
+    <!-- Script Salin Teks Otomatis -->
     <script>
-        function copyPassword(elementId) {
-            // Mengambil teks dari elemen kata sandi yang sesuai
-            const passwordText = document.getElementById(elementId).innerText;
-
-            // Menggunakan API modern Clipboard untuk menyalin teks
-            navigator.clipboard.writeText(passwordText).then(() => {
-                showToast();
-            }).catch(err => {
-                console.error('Gagal menyalin teks: ', err);
-            });
-        }
-
-        function showToast() {
-            const toast = document.getElementById('toast');
-            toast.classList.add('show');
+        function copyText(elementId, button) {
+            // Mengambil teks dari elemen kata sandi
+            const textToCopy = document.getElementById(elementId).innerText;
             
-            // Menghilangkan pesan toast setelah 2 detik
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 2000);
+            // Menggunakan Clipboard API untuk menyalin
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                // Mengubah teks tombol sementara waktu untuk memberi tahu user
+                const originalText = button.innerText;
+                button.innerText = "✓ Tersalin!";
+                button.style.backgroundColor = "#22c55e"; // Berubah warna menjadi hijau
+                
+                setTimeout(() => {
+                    button.innerText = originalText;
+                    button.style.backgroundColor = "#0284c7"; // Kembali ke warna semula
+                }, 2000);
+            }).catch(err => {
+                console.error("Gagal menyalin teks: ", err);
+            });
         }
     </script>
 </body>
