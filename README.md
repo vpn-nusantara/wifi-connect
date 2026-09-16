@@ -198,7 +198,7 @@
             </div>
             <div class="qr-section">
                 <!-- Anda bisa mengganti URL src gambar ini dengan file gambar QR code asli Anda nanti -->
-                <img class="qr-code" <img src="images/NASI_UDUK_FR.png" alt="QR Jaringan 1">
+                <img class="qr-code" <img src="images/NASI_UDUK_FR.png" alt="QR Jaringan 1" style="max-width: 100%; height: auto;">
                 <div class=>
                 </div>
             </div>
@@ -220,7 +220,7 @@
             </div>
             <div class="qr-section">
                 <!-- Anda bisa mengganti URL src gambar ini dengan file gambar QR code asli Anda nanti -->
-                <img class="qr-code" <img src="images/NASI UDUK FR_4G.png" alt="QR Jaringan 2">
+                <img class="qr-code" <img src="images/NASI UDUK FR_4G.png" alt="QR Jaringan 2 "style="max-width: 100%; height: auto;">
                 <div class=>
                 </div>
             </div>
