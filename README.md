@@ -172,7 +172,7 @@
             
             <div class="info-group">
                 <div class="info-label">Kata Sandi</div>
-                <div class="info-value" id="pass1">2U346J2J88</div>
+                <div class="info-value" id="pass1">88012193</div>
             </div>
 
             <!-- Barcode berada di bawah teks -->
@@ -197,7 +197,7 @@
             
             <div class="info-group">
                 <div class="info-label">Kata Sandi</div>
-                <div class="info-value" id="pass2">2U346J2J88</div>
+                <div class="info-value" id="pass2">88012193</div>
             </div>
 
             <!-- Barcode berada di bawah teks -->
